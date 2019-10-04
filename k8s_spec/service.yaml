@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-apm-flask
+  namespace: test-apm
+  labels:
+    app: test-apm-flask
+spec:
+  selector:
+    app: test-apm-flask
+  ports:
+    - name: http
+      protocol: TCP
+      port: 5000
+      targetPort: 5000

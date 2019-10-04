@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query
+  namespace: test-apm
+  labels:
+    app: query
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query
+  template:
+    metadata:
+      labels:
+        app: query
+    spec:
+      containers:
+      - name: query
+        image: odise/busybox-curl
+        imagePullPolicy: IfNotPresent
+        command:
+        - /bin/sh
+        - /usr/src/app/script/query_script.sh
+        volumeMounts:
+        - mountPath: /usr/src/app/script
+          name: query-script
+      volumes:
+      - name: query-script
+        configMap:
+          name: query

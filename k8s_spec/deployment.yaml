@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-apm-flask
+  namespace: test-apm
+  labels:
+    app: test-apm-flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-apm-flask
+  template:
+    metadata:
+      labels:
+        app: test-apm-flask
+    spec:
+      containers:
+      - name: test
+        image: phamlamvuong/my_apm_python:1.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+          name: apm-flask

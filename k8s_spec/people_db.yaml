@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: people-db
+  namespace: test-apm
+  labels:
+    app: people-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: people-db
+  template:
+    metadata:
+      labels:
+        app: people-db
+    spec:
+      containers:
+        - name: people
+          image: phamlamvuong/my_apm_python:1.0.0
+          imagePullPolicy: IfNotPresent
+          command:
+          - /usr/local/bin/python
+          - ./flask_people.py
+          ports:
+          - containerPort: 5001
+            name: people-db
